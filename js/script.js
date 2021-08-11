@@ -1,29 +1,35 @@
 'use strict'
 
-let a = document.getElementById('start');
+let btnStart = document.getElementById('start');
 
-let b = document.getElementsByClassName('btn_plus')[0];
-let b1 = document.getElementsByClassName('btn_plus')[1];
+let btnSum = document.getElementsByClassName('btn_plus')[0];
+let btnSum1 = document.getElementsByClassName('btn_plus')[1];
 
-let с = document.querySelector('#deposit-check');
+let depositCheck = document.querySelector('#deposit-check');
 
-let d = document.querySelectorAll('.additional_income-item');
+let additionalItem = document.querySelectorAll('.additional_income-item');
 
 // let e = document.querySelectorAll('[class*="-value"]');
-let e = document.getElementsByClassName('result-total');
+let valBudgetMonth = document.getElementsByClassName('budget_month-value');
+let valBudgetBay = document.getElementsByClassName('budget_day-value');
+let valExpensesMonth = document.getElementsByClassName('expenses_month-value');
+let valAdditionalIncome = document.getElementsByClassName('additional_income-value');
+let valAdditionalExpenses = document.getElementsByClassName('additional_expenses-value');
+let valIncomePeriod = document.getElementsByClassName('income_period-value');
+let valTargetMonth = document.getElementsByClassName('target_month-value');
 
-let f = document.querySelector('.salary input');
+let inputSalary = document.querySelector('.salary input');
 
-let g = document.querySelector('.income-items input');
+let nameIncomeItems = document.querySelector('.income-items input');
 
-let g1 = document.querySelector('.income-amount');
+let sumIncomeItems = document.querySelector('.income-amount');
 
-let h = document.querySelector('.expenses-items input');
+let nameExpensesItem = document.querySelector('.expenses-items input');
 
-let h1 = document.querySelector('.expenses-amount');
+let sumExpensesItem = document.querySelector('.expenses-amount');
 
-let i = document.querySelector('.additional_expenses-item');
+let inputAdditionalExpenses = document.querySelector('.additional_expenses-item');
 
-let j = document.querySelector('.target-amount');
+let inputTargetAmount = document.querySelector('.target-amount');
 
-let k = document.querySelector('.period-select');
+let inputPeriodSelect = document.querySelector('.period-select');
