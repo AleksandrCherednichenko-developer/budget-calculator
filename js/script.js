@@ -68,7 +68,6 @@ let start = document.getElementById('start'),
          additionalIncomeValue.value = appData.addIncome.join(', ');
          targetMonthValue.value = Math.ceil(appData.getTargetMonth());
          incomePeriodValue.value = appData.calcSavedMoney();
-
       },
 
       // создаёт поля с дополнительным доходом max=3
