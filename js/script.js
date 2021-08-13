@@ -58,9 +58,6 @@ let start = document.getElementById('start'),
          appData.getAddExpenses();
 
          appData.showResult();
-         // // appData.getInfoDeposit();
-         // // appData.getTargetMonth();
-         // // appData.getStatusIncome();
       },
       // выводим результаты в правой части формы
       showResult: function(){
@@ -71,6 +68,7 @@ let start = document.getElementById('start'),
          additionalIncomeValue.value = appData.addIncome.join(', ');
          targetMonthValue.value = Math.ceil(appData.getTargetMonth());
          incomePeriodValue.value = appData.calcSavedMoney();
+
       },
 
       // создаёт поля с дополнительным доходом max=3
@@ -159,42 +157,41 @@ let start = document.getElementById('start'),
       calcSavedMoney: function(){
          return appData.budgetMonth * periodSelect.value;
       },
-   
-      getStatusIncome: function(){
-         if(appData.budgetDay > 800){
-            return ("У вас высокий уровень дохода");
-         } else if(appData.budgetDay > 300){
-            return ("У вас средний уровень дохода");
-         } else if(appData.budgetDay > 0){
-            return ("У вас низкий уровень дохода");
-         } else {
-            return ("Что то пошло не так");
-         }
+      // изменияет цифры под ползунком
+      getPeriodSelect: function () {
+         periodAmount.innerHTML = periodSelect.value;
       },
    
-      getInfoDeposit: function(){
-         if (appData.deposit) {
-            appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
-            while (!isNumder(appData.persentDeposit)){
-               appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
-            }
-            appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
-            while (!isNumder(appData.moneyDeposit)){
-               appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
-            }
-         }
-      },
+      // getStatusIncome: function(){
+      //    if(appData.budgetDay > 800){
+      //       return ("У вас высокий уровень дохода");
+      //    } else if(appData.budgetDay > 300){
+      //       return ("У вас средний уровень дохода");
+      //    } else if(appData.budgetDay > 0){
+      //       return ("У вас низкий уровень дохода");
+      //    } else {
+      //       return ("Что то пошло не так");
+      //    }
+      // },
+   
+      // getInfoDeposit: function(){
+      //    if (appData.deposit) {
+      //       appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
+      //       while (!isNumder(appData.persentDeposit)){
+      //          appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
+      //       }
+      //       appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
+      //       while (!isNumder(appData.moneyDeposit)){
+      //          appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
+      //       }
+      //    }
+      // },
    };
-
-   function fun1() {
-      periodAmount.innerHTML=periodSelect.value;
-   };
-
 
    start.addEventListener('click', appData.start);
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
-
+   periodSelect.addEventListener('mousemove', appData.getPeriodSelect);
 
    // function addExpensesString() {
    //    let result = appData.addExpenses.map(upPer);
