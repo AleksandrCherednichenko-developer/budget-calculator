@@ -4,7 +4,7 @@ let isNumder = function(n){
 };
 
 
-let start = document.getElementById('start'),
+let startBtn = document.getElementById('start'),
    btnPluse = document.getElementsByClassName('btn_plus'),
    incomePlsue = btnPluse[0],
    expensesPluse = btnPluse[1],
@@ -28,7 +28,7 @@ let start = document.getElementById('start'),
    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
    targetAmount = document.querySelector('.target-amount');
 
-
+   startBtn.disabled = true;
    let appData = {
       budget: 0,
       budgetDay: 0,
@@ -44,9 +44,6 @@ let start = document.getElementById('start'),
       moneyDeposit: 0,
       periodDeposit: 0,
       start: function(){
-         if (salaryAmount.value === '') {
-            start.prop('disabled', false);
-         }
          appData.budget = salaryAmount.value;
 
          appData.getIncome();
@@ -56,7 +53,6 @@ let start = document.getElementById('start'),
          appData.getBudget();
          appData.getAddIncome();
          appData.getAddExpenses();
-
          appData.showResult();
       },
       // выводим результаты в правой части формы
@@ -68,8 +64,10 @@ let start = document.getElementById('start'),
          additionalIncomeValue.value = appData.addIncome.join(', ');
          targetMonthValue.value = Math.ceil(appData.getTargetMonth());
          incomePeriodValue.value = appData.calcSavedMoney();
+         periodSelect.addEventListener('input', function(){
+            incomePeriodValue.value = appData.calcSavedMoney();
+         });
       },
-
       // создаёт поля с дополнительным доходом max=3
       addIncomeBlock: function(){
          let cloneIncomeItem = incomeItems[0].cloneNode(true);
@@ -187,7 +185,10 @@ let start = document.getElementById('start'),
       // },
    };
 
-   start.addEventListener('click', appData.start);
+   salaryAmount.addEventListener('input', function(){
+      startBtn.disabled = false;
+   });
+   startBtn.addEventListener('click', appData.start);
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
    periodSelect.addEventListener('mousemove', appData.getPeriodSelect);
