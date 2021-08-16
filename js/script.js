@@ -191,17 +191,19 @@ let startBtn = document.getElementById('start'),
       startBtn.disabled = false;
    });
    startBtn.addEventListener('click', appData.start);
-   startBtn.addEventListener('click', function(){
-      // не со всеми работает
-      salaryAmount.disabled = true;
-      incomeTilte.disabled = true;
-      incomeAmount.disabled = true;
-      incomeItems.disabled = true;
-   });
-   startBtn.addEventListener('click', function () {
-      cancelBtn.style.display = 'block';
-      startBtn.style.display = 'none';
-   });
+   // startBtn.addEventListener('click', function(){
+   //    // не со всеми работает
+   //    // salaryAmount.disabled = true;
+   //    // incomeTilte.disabled = true;
+   //    // incomeAmount.disabled = true;
+   //    // incomeItems.disabled = true;
+   //    // salaryAmount.setAttribute("readonly", "readonly");
+   //    // incomeTilte.setAttribute("readonly", "readonly");
+   // });
+   // startBtn.addEventListener('click', function () {
+   //    cancelBtn.style.display = 'block';
+   //    startBtn.style.display = 'none';
+   // });
    // cancelBtn.addEventListener('click', function () {
    //    // cancelBtn.style.display = 'none';
    //    // startBtn.style.display = 'block';
