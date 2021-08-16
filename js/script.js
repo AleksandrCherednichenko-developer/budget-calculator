@@ -11,7 +11,7 @@ let startBtn = document.getElementById('start'),
    incomeItems = document.querySelectorAll('.income-items'),
    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
    expensesTitle = document.querySelector('.expenses-title'),
-   expensesAmount =document.querySelector('.expenses-amount'),
+   expensesAmount = document.querySelector('.expenses-amount'),
    expensesItems = document.querySelectorAll('.expenses-items'),
    additionalExpenses = document.querySelector('.additional_expenses-item'),
    depositCheck = document.querySelector('#deposit-check'),
@@ -27,7 +27,8 @@ let startBtn = document.getElementById('start'),
    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
-   targetMonthValue = document.getElementsByClassName('target_month-value')[0];
+   targetMonthValue = document.getElementsByClassName('target_month-value')[0],
+   allInput = document.querySelectorAll('.data input[type = text]');
 
    startBtn.disabled = true;
    let appData = {
@@ -46,6 +47,21 @@ let startBtn = document.getElementById('start'),
       periodDeposit: 0,
       start: function(){
          appData.budget = salaryAmount.value;
+
+         // блокировать поля для ввода после нажатия кнопки "Расчитать"
+         allInput.forEach(function (item) {
+            item.setAttribute("disabled", "true");
+         });
+         incomePlsue.setAttribute("disabled", "true");
+         expensesPluse.setAttribute("disabled", "true");
+         periodSelect.setAttribute("disabled", "true");
+         // salaryAmount.setAttribute("disabled", "true");
+         // incomeTilte.setAttribute("disabled", "true"); //не работает с толем для ввода текста WTF???
+         // incomeAmount.setAttribute("disabled", "true");
+
+         // убрать кнопку "Расчитать" и показать кнопку "Сбросить"
+         cancelBtn.style.display = 'block';
+         startBtn.style.display = 'none';
 
          appData.getIncome();
          appData.getIncomeMonth();
@@ -161,15 +177,6 @@ let startBtn = document.getElementById('start'),
          periodAmount.innerHTML = periodSelect.value;
       },
 
-      getInputDisabled: function(){
-         // salaryAmount.disabled = true;
-         salaryAmount.setAttribute("disabled", "disabled");
-         // incomeTilte.disabled = true;
-         incomeTilte.setAttribute("disabled", "disabled");
-         // incomeAmount.disabled = true;
-         incomeAmount.setAttribute("disabled", "disabled");
-      }
-   
 /*
       getStatusIncome: function(){
          if(appData.budgetDay > 800){
@@ -202,15 +209,18 @@ let startBtn = document.getElementById('start'),
       startBtn.disabled = false;
    });
    startBtn.addEventListener('click', appData.start);
-   startBtn.addEventListener('click', appData.getInputDisabled);
-   startBtn.addEventListener('click', function () {
-      cancelBtn.style.display = 'block';
-      startBtn.style.display = 'none';
-   });
    cancelBtn.addEventListener('click', function () {
-      // cancelBtn.style.display = 'none';
-      // startBtn.style.display = 'block';
+      cancelBtn.style.display = 'none';
+      startBtn.style.display = 'block';
+
+      allInput.forEach(function (item) {
+         item.removeAttribute("disabled");
+      })
+      incomePlsue.removeAttribute("disabled");
+      expensesPluse.removeAttribute("disabled");
+      periodSelect.removeAttribute("disabled");
    });
+
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
    periodSelect.addEventListener('mousemove', appData.getPeriodSelect);
