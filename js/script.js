@@ -157,76 +157,78 @@ let startBtn = document.getElementById('start'),
          return appData.budgetMonth * periodSelect.value;
       },
       // изменияет цифры под ползунком
-      getPeriodSelect: function () {
+      getPeriodSelect: function(){
          periodAmount.innerHTML = periodSelect.value;
       },
+
+      getInputDisabled: function(){
+         // salaryAmount.disabled = true;
+         salaryAmount.setAttribute("disabled", "disabled");
+         // incomeTilte.disabled = true;
+         incomeTilte.setAttribute("disabled", "disabled");
+         // incomeAmount.disabled = true;
+         incomeAmount.setAttribute("disabled", "disabled");
+      }
    
-      // getStatusIncome: function(){
-      //    if(appData.budgetDay > 800){
-      //       return ("У вас высокий уровень дохода");
-      //    } else if(appData.budgetDay > 300){
-      //       return ("У вас средний уровень дохода");
-      //    } else if(appData.budgetDay > 0){
-      //       return ("У вас низкий уровень дохода");
-      //    } else {
-      //       return ("Что то пошло не так");
-      //    }
-      // },
+/*
+      getStatusIncome: function(){
+         if(appData.budgetDay > 800){
+            return ("У вас высокий уровень дохода");
+         } else if(appData.budgetDay > 300){
+            return ("У вас средний уровень дохода");
+         } else if(appData.budgetDay > 0){
+            return ("У вас низкий уровень дохода");
+         } else {
+            return ("Что то пошло не так");
+         }
+      },
    
-      // getInfoDeposit: function(){
-      //    if (appData.deposit) {
-      //       appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
-      //       while (!isNumder(appData.persentDeposit)){
-      //          appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
-      //       }
-      //       appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
-      //       while (!isNumder(appData.moneyDeposit)){
-      //          appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
-      //       }
-      //    }
-      // },
+      getInfoDeposit: function(){
+         if (appData.deposit) {
+            appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
+            while (!isNumder(appData.persentDeposit)){
+               appData.persentDeposit = prompt("Какой у вас годовой процент?", 10);
+            }
+            appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
+            while (!isNumder(appData.moneyDeposit)){
+               appData.moneyDeposit = prompt("Какая сумма у вас на депозитном счету?", 10000);
+            }
+         }
+      },
+*/
    };
 
    salaryAmount.addEventListener('input', function(){
       startBtn.disabled = false;
    });
    startBtn.addEventListener('click', appData.start);
-   // startBtn.addEventListener('click', function(){
-   //    // не со всеми работает
-   //    // salaryAmount.disabled = true;
-   //    // incomeTilte.disabled = true;
-   //    // incomeAmount.disabled = true;
-   //    // incomeItems.disabled = true;
-   //    // salaryAmount.setAttribute("readonly", "readonly");
-   //    // incomeTilte.setAttribute("readonly", "readonly");
-   // });
-   // startBtn.addEventListener('click', function () {
-   //    cancelBtn.style.display = 'block';
-   //    startBtn.style.display = 'none';
-   // });
-   // cancelBtn.addEventListener('click', function () {
-   //    // cancelBtn.style.display = 'none';
-   //    // startBtn.style.display = 'block';
-   //    // salaryAmount.value = '';
-   //    // salaryAmount.disabled = false;
-   // });
+   startBtn.addEventListener('click', appData.getInputDisabled);
+   startBtn.addEventListener('click', function () {
+      cancelBtn.style.display = 'block';
+      startBtn.style.display = 'none';
+   });
+   cancelBtn.addEventListener('click', function () {
+      // cancelBtn.style.display = 'none';
+      // startBtn.style.display = 'block';
+   });
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
    periodSelect.addEventListener('mousemove', appData.getPeriodSelect);
 
 
 
+/*
+   function addExpensesString() {
+      let result = appData.addExpenses.map(upPer);
+         function upPer(value) {
+            return value[0].toUpperCase() + value.substr(1);
+         }
+      console.log("Ваши дополнительные рассходы: " + result.join(', '));
+   }
+   addExpensesString();
 
-   // function addExpensesString() {
-   //    let result = appData.addExpenses.map(upPer);
-   //       function upPer(value) {
-   //          return value[0].toUpperCase() + value.substr(1);
-   //       }
-   //    console.log("Ваши дополнительные рассходы: " + result.join(', '));
-   // }
-   // addExpensesString();
-
-   // console.log("Наша программа включает в себя данные: ");
-   // for (let key in appData){
-   //    console.log(key + ": " + appData[key]);
-   // }
+   console.log("Наша программа включает в себя данные: ");
+   for (let key in appData){
+      console.log(key + ": " + appData[key]);
+   }
+*/
