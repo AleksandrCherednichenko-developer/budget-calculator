@@ -3,30 +3,31 @@ let isNumder = function(n){
    return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-
 let startBtn = document.getElementById('start'),
+   cancelBtn = document.getElementById('cancel'),
+   salaryAmount = document.querySelector('.salary-amount'),
+   incomeTilte = document.querySelector('.income-title'),
+   incomeAmount = document.querySelector('.income-amount'),
+   incomeItems = document.querySelectorAll('.income-items'),
+   additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
+   expensesTitle = document.querySelector('.expenses-title'),
+   expensesAmount =document.querySelector('.expenses-amount'),
+   expensesItems = document.querySelectorAll('.expenses-items'),
+   additionalExpenses = document.querySelector('.additional_expenses-item'),
+   depositCheck = document.querySelector('#deposit-check'),
+   targetAmount = document.querySelector('.target-amount'),
+   periodSelect = document.querySelector('.period-select'),
+   periodAmount = document.querySelector('.period-amount'),
    btnPluse = document.getElementsByClassName('btn_plus'),
    incomePlsue = btnPluse[0],
    expensesPluse = btnPluse[1],
-   additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
-   depositCheck = document.querySelector('#deposit-check'),
    budgetMonthValue = document.getElementsByClassName('budget_month-value')[0],
    budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
    expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
-   targetMonthValue = document.getElementsByClassName('target_month-value')[0],
-   salaryAmount = document.querySelector('.salary-amount'),
-   incomeTilte = document.querySelector('.income-title'),
-   incomeItems = document.querySelectorAll('.income-items'),
-   expensesTitle = document.querySelector('.expenses-title'),
-   expensesItems = document.querySelectorAll('.expenses-items'),
-   additionalExpenses = document.querySelector('.additional_expenses-item'),
-   periodSelect = document.querySelector('.period-select'),
-   periodAmount = document.querySelector('.period-amount'),
-   additionalExpensesItem = document.querySelector('.additional_expenses-item'),
-   targetAmount = document.querySelector('.target-amount');
+   targetMonthValue = document.getElementsByClassName('target_month-value')[0];
 
    startBtn.disabled = true;
    let appData = {
@@ -67,6 +68,7 @@ let startBtn = document.getElementById('start'),
          periodSelect.addEventListener('input', function(){
             incomePeriodValue.value = appData.calcSavedMoney();
          });
+         console.log(this);
       },
       // создаёт поля с дополнительным доходом max=3
       addIncomeBlock: function(){
@@ -117,7 +119,7 @@ let startBtn = document.getElementById('start'),
       },
       // выводит в правой части все значения "Возможных расходов" записанные в левой части
       getAddExpenses: function(){
-         let addExpenses = additionalExpensesItem.value.split(', ');
+         let addExpenses = additionalExpenses.value.split(', ');
          addExpenses.forEach(function(item){
             item = item.trim();
             if (item !== '') {
@@ -189,9 +191,29 @@ let startBtn = document.getElementById('start'),
       startBtn.disabled = false;
    });
    startBtn.addEventListener('click', appData.start);
+   startBtn.addEventListener('click', function(){
+      // не со всеми работает
+      salaryAmount.disabled = true;
+      incomeTilte.disabled = true;
+      incomeAmount.disabled = true;
+      incomeItems.disabled = true;
+   });
+   startBtn.addEventListener('click', function () {
+      cancelBtn.style.display = 'block';
+      startBtn.style.display = 'none';
+   });
+   // cancelBtn.addEventListener('click', function () {
+   //    // cancelBtn.style.display = 'none';
+   //    // startBtn.style.display = 'block';
+   //    // salaryAmount.value = '';
+   //    // salaryAmount.disabled = false;
+   // });
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
    periodSelect.addEventListener('mousemove', appData.getPeriodSelect);
+
+
+
 
    // function addExpensesString() {
    //    let result = appData.addExpenses.map(upPer);
