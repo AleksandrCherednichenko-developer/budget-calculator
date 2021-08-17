@@ -176,6 +176,55 @@ let startBtn = document.getElementById('start'),
       getPeriodSelect: function(){
          periodAmount.innerHTML = periodSelect.value;
       },
+      //обнуление формы
+      reset: function () {
+         let inputTextData = document.querySelectorAll('.data input[type = text]'),
+            resultInputData = document.querySelectorAll('.result input[type = text]');
+
+         inputTextData.forEach(function (elem) {
+            elem.value = '';
+            elem.removeAttribute('disabled');
+            periodSelect.value = '0';
+            periodAmount.innerHTML = periodSelect.value;
+         });
+         resultInputData.forEach(function (elem) {
+            elem.value = '';
+         });
+
+         for (let i = 1; i < incomeItems.length; i++){
+            incomeItems[i].parentNode.removeChild(incomeItems(i));
+            incomePlsue.style.display = 'block';
+         }
+         for (let i = 1; i < expensesItems.length; i++){
+            expensesItems[i].parentNode.removeChild(expensesItems(i));
+            expensesPluse.style.display = 'block';
+         }
+
+         // как изначально можно было прописать без this
+         this.budget = 0;
+         this.budgetDay = 0;
+         this.budgetMonth = 0;
+         this.incomeMonth = 0;
+         this.income = {};
+         this.addIncome = [];
+         this.expensesMonth = 0;
+         this.expenses = {};
+         this.addExpenses = [];
+         this.deposit = false;
+         this.persentDeposit = 0;
+         this.moneyDeposit = 0;
+         this.periodDeposit = 0;
+
+         cancelBtn.style.display = 'none';
+         startBtn.style.display = 'block';
+
+         allInput.forEach(function (item) {
+            item.removeAttribute("disabled");
+         });
+         incomePlsue.removeAttribute("disabled");
+         expensesPluse.removeAttribute("disabled");
+         periodSelect.removeAttribute("disabled");
+      }
 
 /*
       getStatusIncome: function(){
@@ -208,18 +257,9 @@ let startBtn = document.getElementById('start'),
    salaryAmount.addEventListener('input', function(){
       startBtn.disabled = false;
    });
-   startBtn.addEventListener('click', appData.start);
-   cancelBtn.addEventListener('click', function () {
-      cancelBtn.style.display = 'none';
-      startBtn.style.display = 'block';
 
-      allInput.forEach(function (item) {
-         item.removeAttribute("disabled");
-      })
-      incomePlsue.removeAttribute("disabled");
-      expensesPluse.removeAttribute("disabled");
-      periodSelect.removeAttribute("disabled");
-   });
+   startBtn.addEventListener('click', appData.start);
+   cancelBtn.addEventListener('click', appData.reset.bind(appData)); //  зачем бинд
 
    incomePlsue.addEventListener('click', appData.addIncomeBlock);
    expensesPluse.addEventListener('click', appData.addExpensesBlock);
