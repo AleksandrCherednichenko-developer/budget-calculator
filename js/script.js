@@ -89,6 +89,8 @@ let startBtn = document.getElementById('start'),
       // создаёт поля с дополнительным доходом max=3
       addIncomeBlock: function(){
          let cloneIncomeItem = incomeItems[0].cloneNode(true);
+         cloneIncomeItem.querySelector('.income-title').value = '';
+         cloneIncomeItem.querySelector('.income-amount').value = '';
          incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlsue);
          incomeItems = document.querySelectorAll('.income-items');
          if(incomeItems.length === 3){
@@ -117,6 +119,8 @@ let startBtn = document.getElementById('start'),
       // создаёт поля с обязательными расходами max=3
       addExpensesBlock: function(){
          let cloneExpensesItem = expensesItems[0].cloneNode(true);
+         cloneExpensesItem.querySelector('.expenses-title').value = '';
+         cloneExpensesItem.querySelector('.expenses-amount').value = '';
          expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPluse);
          expensesItems = document.querySelectorAll('.expenses-items');
          if(expensesItems.length === 3){
