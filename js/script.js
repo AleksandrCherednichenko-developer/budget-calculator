@@ -28,8 +28,8 @@ let startBtn = document.getElementById('start'),
    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
    additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
    incomePeriodValue = document.getElementsByClassName('income_period-value')[0],
-   targetMonthValue = document.getElementsByClassName('target_month-value')[0],
-   allInput = document.querySelectorAll('.data input[type = text]');
+   targetMonthValue = document.getElementsByClassName('target_month-value')[0];
+
 
    startBtn.disabled = true;
    let appData = {
@@ -47,6 +47,8 @@ let startBtn = document.getElementById('start'),
       moneyDeposit: 0,
       periodDeposit: 0,
       start() {
+         let allInput = document.querySelectorAll('.data input[type = text]');
+
          this.budget = salaryAmount.value;
 
          // блокировать поля для ввода после нажатия кнопки "Расчитать"
@@ -200,11 +202,11 @@ let startBtn = document.getElementById('start'),
          });
 
          for (let i = 1; i < incomeItems.length; i++){
-            incomeItems[i].parentNode.removeChild(incomeItems(i));
+            incomeItems[i].parentNode.removeChild(incomeItems[i]);
             incomePlsue.style.display = 'block';
          }
          for (let i = 1; i < expensesItems.length; i++){
-            expensesItems[i].parentNode.removeChild(expensesItems(i));
+            expensesItems[i].parentNode.removeChild(expensesItems[i]);
             expensesPluse.style.display = 'block';
          }
 
