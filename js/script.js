@@ -1,10 +1,13 @@
-'use strict'
+'use strict';
 
 let start = document.getElementById('start'),
    cancel = document.getElementById('cancel'),
    btnPlusIncomeAdd = document.getElementsByTagName('button')[0],
    btnPlusExpensesAdd = document.getElementsByTagName('button')[1],
    depositCheck = document.querySelector('#deposit-check'),
+   depositBank = document.querySelector('.deposit-bank'),
+   depositAmount = document.querySelector('.deposit-amount'),
+   depositPercent = document.querySelector('.deposit-percent'),
    additionalIncomeItem = document.querySelectorAll('.additional_income-item'),
    budgetMonthValue = document.getElementsByClassName('result-total budget_month-value')[0],
    budgetDayValue = document.getElementsByClassName('result-total budget_day-value')[0],
@@ -72,6 +75,7 @@ class AppData {
       this.getAddExpenses();
       this.getIncome();
       this.getAddIncome();
+      this.getInfoDeposit();
       this.getBudget();
       this.showResult();
    };
@@ -213,7 +217,8 @@ class AppData {
    };
 
    getBudget () {
-      this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+      const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
+      this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
       this.budgetDay = Math.floor(this.budgetMonth / 30);
    };
 
@@ -221,20 +226,54 @@ class AppData {
       return Math.ceil(targetAmount.value / this.budgetMonth);
    };
 
+   calcPeriod () {
+      return this.budgetMonth * periodSelect.value;
+   };
+
    getInfoDeposit () {
-      this.deposit = confirm('Есть ли у вас депозит в банке?');
       if (this.deposit) {
-         do {
-            this.percentDeposit = prompt('Какой годовой процент? ', '10');
-         } while (!isNumber(this.percentDeposit));
-         do {
-            this.moneyDeposit = prompt('Какая сумма заложена? ', 10000);
-         } while (!isNumber(this.moneyDeposit));
+         this.moneyDeposit = depositAmount.value;
+         this.percentDeposit = depositPercent.value;
       }
    };
 
-   calcPeriod () {
-      return this.budgetMonth * periodSelect.value;
+   changePersent () {
+      const valueSelect = this.value;
+      if (valueSelect === 'other'){
+         depositPercent.value = '';
+         depositPercent.removeAttribute('disabled');
+         depositPercent.style.display = 'inline-block';
+      } else {
+         depositPercent.value = valueSelect;
+         depositPercent.setAttribute('disabled', 'disabled');
+         depositPercent.style.display = 'none';
+      }
+
+      depositPercent.addEventListener('input', function(){
+         if ((!(0 < depositPercent.value && depositPercent.value < 100)) || (!/^[0-9]+$/.test(depositPercent.value))){
+            start.setAttribute('disabled', 'disabled');
+            alert("Поле с процентами должно содеражать только цифры и находиться в диапозоне от 1 до 100. Введите корректное значение в поле проценты");
+         } else {
+            start.removeAttribute('disabled');
+         }
+      });
+   }
+
+   depositHandler () {
+      if (depositCheck.checked){
+         depositBank.style.display = 'inline-block';
+         depositAmount.style.display = 'inline-block';
+         this.deposit = true;
+         depositBank.addEventListener('change', this.changePersent);
+      } else {
+         depositBank.style.display = 'none';
+         depositAmount.style.display = 'none';
+         depositBank.value = '';
+         depositAmount.value = '';
+         depositPercent.value = '';
+         this.deposit = false;
+         depositBank.removeEventListener('change', this.changePersent);
+      }
    };
 
    eventListener () {
@@ -247,7 +286,9 @@ class AppData {
       periodSelect.addEventListener('input', function () {
          periodSelectText.innerHTML = periodSelect.value;
       });
-      
+
+      depositCheck.addEventListener('change', this.depositHandler.bind(this));
+
       placeHolderSum.forEach(function (item) {
          item.addEventListener('change', function () {
             item.value = item.value.replace(/[^0-9]/g, '');
